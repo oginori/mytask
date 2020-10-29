@@ -1,5 +1,5 @@
 class TasksController < ApplicationController
-  before_action :task_params, only: [:show, :edit, :update]
+  before_action :task_params, only: [:show, :edit, :update, :destroy]
   def index
     @tasks = Task.all
   end
@@ -29,6 +29,11 @@ class TasksController < ApplicationController
     else
       render :new
     end
+  end
+
+  def destroy
+    @task.destroy
+    redirect_to tasks_path, noice: 'タスクを削除しました。'
   end
 
   private
