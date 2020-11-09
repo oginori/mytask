@@ -1,10 +1,10 @@
 FactoryBot.define do
   factory :task do
-    name { 'test_name1' }
-    description { 'test_description1' }
+    name { 'Factoryで作ったデフォルトのタイトル１' }
+    description { 'Factoryで作ったデフォルトのコンテント１' }
   end
   factory :second_task, class: Task do
-    name { 'test_name2' }
-    description { 'test_description2' }
+    name { 'Factoryで作ったデフォルトのタイトル２' }
+    description { 'Factoryで作ったデフォルトのコンテント２' }
   end
 end
