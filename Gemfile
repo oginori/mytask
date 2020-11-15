@@ -32,6 +32,7 @@ end
 group :test do
   gem 'capybara', '>= 2.15'
   gem 'webdrivers'
+  gem 'pry-rails'
   gem 'launchy'
 end
 
