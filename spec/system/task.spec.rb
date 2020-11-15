@@ -29,7 +29,6 @@ describe 'タスク管理機能', type: :system do
       it '新しいタスクが一番上に表示される' do
         visit tasks_path
         task_list = all('.task_name')
-        save_and_open_page
         expect(task_list[0]).to have_content 'title5'
       end
     end
