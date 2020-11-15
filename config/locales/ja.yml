@@ -206,4 +206,7 @@ ja:
       short: "%m/%d %H:%M"
     pm: 午後
   view:
+    name: 名前
+    description: 詳細
     back: 戻る
+    sample: サンプル
