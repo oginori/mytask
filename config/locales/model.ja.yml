@@ -7,3 +7,4 @@ ja:
       task:
         name: タスク名
         description: 詳細
+        expired_at: 終了期限

@@ -2,7 +2,7 @@
 
 <%= notice %>
 
-<%= link_to "終了期限でソートする", tasks_path(sort_expired: "true") %>
+<%= link_to "終了期限でソートする", tasks_path(sort_expired: "true", class: "sort_button") %>
 
 <table>
   <tr>
@@ -16,7 +16,7 @@
     <td class="task_name"><%= task.name %></td>
     <td><%= task.description %></td>
     <td><%= task.created_at.strftime("%Y/%m/%d %H:%M") %></td>
-    <td><%= task.expired_at %></td>
+    <td class="task_expired_at"><%= task.expired_at %></td>
     <td><%= link_to '詳細', task_path(task.id) %>
     <td><%= link_to '編集', edit_task_path(task.id) %>
     <td><%= link_to '削除', task_path(task.id), method: :delete, data: { confirm: '本当に削除しますか' } %>
