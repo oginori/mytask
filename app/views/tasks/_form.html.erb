@@ -18,6 +18,10 @@
     <%= f.label :description %><br>
     <%= f.text_area :description %><br>
   </div>
+  <div class="task_expired_at">
+    <%= f.label :expired_at %><br>
+    <%= f.date_select :expired_at %><br>
+  </div>
 
   <%= f.submit %>
 <% end %>
