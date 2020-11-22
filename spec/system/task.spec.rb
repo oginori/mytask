@@ -1,6 +1,6 @@
 require 'rails_helper'
 describe 'タスク管理機能', type: :system do
-  let!(:task) { FactoryBot.create(:task, name: 'task')}
+  let!(:task) { FactoryBot.create(:task, name: 'task', status: '完了')}
   let!(:second_task) { FactoryBot.create(:second_task)}
   let!(:third_task) { FactoryBot.create(:third_task)}
   let!(:fourth_task) { FactoryBot.create(:fourth_task)}
@@ -37,7 +37,6 @@ describe 'タスク管理機能', type: :system do
     context '「終了期限でソートする」というボタンを押した場合' do
       it '終了期限の降順に並び替えられる' do
         visit tasks_path
-        #click_on "終了期限でソートする"
         find('.sort_button').click
         task_list = all('.task_name')
         expect(task_list[0]).to have_content 'title5'
@@ -53,4 +52,36 @@ describe 'タスク管理機能', type: :system do
       end
     end
   end
+
+  describe '検索機能' do
+    context 'タイトルで曖昧検索をした場合' do
+      it '検索ワードを含むタスクで絞り込める' do
+        visit tasks_path
+        fill_in 'task_name', with: task.name
+        select '', from: 'ステータス'
+        click_on 'search'
+        expect(page).to have_content 'task'
+      end
+    end
+    context ' ステータス検索をした場合' do
+      it 'ステータスに完全一致するタスクが絞り込まれる' do
+        visit tasks_path
+        select '完了', from: 'ステータス'
+        click_on 'search'
+        expect(page).to have_content '完了'
+      end
+    end
+
+    context 'タイトルの曖昧検索とステータス検索をした場合' do
+      it '検索キーワードをタイトルに含み、かつステータスに完全一致するタスクが絞り込まれる' do
+        visit tasks_path
+        fill_in 'task_name', with: task.name
+        select '完了', from: 'ステータス'
+        click_on 'search'
+        expect(page).to have_content 'task'
+        expect(page).to have_content '完了'
+      end
+    end
+  end
+
 end

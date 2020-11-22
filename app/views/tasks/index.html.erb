@@ -2,14 +2,14 @@
 
 <%= notice %>
 
-<%= link_to "終了期限でソートする", tasks_path(sort_expired: "true", class: "sort_button") %>
+<%= link_to "終了期限でソートする", tasks_path(sort_expired: "true"), class: "sort_button" %>
 
 <%= form_with(model: Task.new, method: :get, local: true) do |f| %>
   <%= f.label :name, 'タスク' %>
   <%= f.text_field :name %>
-  <%= f.label :status, 'タスク' %>
+  <%= f.label :status %>
   <%= f.select :status, [['未着手','未着手'], ['着手中', '着手中'], ['完了', '完了']], include_blank: true %>
-  <%= f.submit '投稿' %>
+  <%= f.submit '検索する', id: "search" %>
 <% end %>
 <%= link_to '一覧に戻る', tasks_path %>
 
