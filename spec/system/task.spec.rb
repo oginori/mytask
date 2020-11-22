@@ -37,7 +37,8 @@ describe 'タスク管理機能', type: :system do
     context '「終了期限でソートする」というボタンを押した場合' do
       it '終了期限の降順に並び替えられる' do
         visit tasks_path
-        click_on "終了期限でソートする"
+        #click_on "終了期限でソートする"
+        find('.sort_button').click
         task_list = all('.task_name')
         expect(task_list[0]).to have_content 'title5'
       end
