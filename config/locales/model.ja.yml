@@ -9,3 +9,10 @@ ja:
         description: 詳細
         expired_at: 終了期限
         status: ステータス
+        priority: 優先順位
+  enums:
+    task:
+      priority:
+        high: 高
+        medium: 中
+        low: 低

@@ -1,4 +1,6 @@
 class Task < ApplicationRecord
+  enum priority:[:high, :medium, :low]
+  
   validates :name, presence: true
   validates :description, presence: true
 

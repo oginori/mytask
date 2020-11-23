@@ -2,7 +2,9 @@
 
 <%= notice %>
 
-<%= link_to "終了期限でソートする", tasks_path(sort_expired: "true"), class: "sort_button" %>
+<%= link_to "終了期限でソートする", tasks_path(sort_expired: "true"), class: "sort_expired_button" %>
+
+<%= link_to "優先順位でソートする", tasks_path(sort_priority: "true"), class: "sort_priority_button" %>
 
 <%= form_with(model: Task.new, method: :get, local: true) do |f| %>
   <%= f.label :name, 'タスク' %>
@@ -18,6 +20,7 @@
   <tr>
     <th>タスク名</th>
     <th>詳細</th>
+    <th>優先順位</th>
     <th>ステータス</th>
     <th>作成時間</th>
     <th>終了期限</th>
@@ -26,6 +29,7 @@
   <tr>
     <td class="task_name"><%= task.name %></td>
     <td><%= task.description %></td>
+    <td><%= task.priority_i18n %></td>
     <td><%= task.status %></td>
     <td><%= task.created_at.strftime("%Y/%m/%d %H:%M") %></td>
     <td class="task_expired_at"><%= task.expired_at %></td>
