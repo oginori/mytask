@@ -7,16 +7,20 @@
 <%= link_to "優先順位でソートする", tasks_path(sort_priority: "true"), class: "sort_priority_button" %>
 
 <%= form_with(model: Task.new, method: :get, local: true) do |f| %>
-  <%= f.label :name, 'タスク' %>
-  <%= f.text_field :name %>
+  <div class="input-group">
+  <%= f.label :name %>
+  <%= f.text_field :name, class: "form-control" %>
+  </div>
+  <div class="btn-group">
   <%= f.label :status %>
-  <%= f.select :status, [['未着手','未着手'], ['着手中', '着手中'], ['完了', '完了']], include_blank: true %>
-  <%= f.submit '検索する', id: "search" %>
+  <%= f.select :status, [['未着手','未着手'], ['着手中', '着手中'], ['完了', '完了']], {include_blank: true}  %>
+  </div>
+  <%= f.submit '検索する', id: "search", class: "btn btn-primary" %>
 <% end %>
 <%= link_to '一覧に戻る', tasks_path %>
 
 
-<table>
+<table class="table">
   <tr>
     <th>タスク名</th>
     <th>詳細</th>
@@ -24,6 +28,9 @@
     <th>ステータス</th>
     <th>作成時間</th>
     <th>終了期限</th>
+    <th>詳細</th>
+    <th>編集</th>
+    <th>削除</th>
   </tr>
   <% @tasks.each do |task| %>
   <tr>
