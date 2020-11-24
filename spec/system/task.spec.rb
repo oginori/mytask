@@ -43,14 +43,15 @@ describe 'タスク管理機能', type: :system do
       end
     end
 
-    # context '「優先順位でソートする」というボタンを押した場合' do
-    #   it '優先順位の高い順に並び替えられる' do
-    #     visit tasks_path
-    #     find('.sort_priority_button').click
-    #     task_list = all('.task_name')
-    #     expect(task_list[0]).to have_content 'title5'
-    #   end
-    # end
+    context '「優先順位でソートする」というボタンを押した場合' do
+      it '優先順位の高い順に並び替えられる' do
+        visit tasks_path
+        find('.sort_priority_button').click
+        task_list = all('.task_name')
+        # expect(task_list[0]).to have_content 'title5'
+      end
+    end
+
   end
 
   describe '詳細表示機能' do
