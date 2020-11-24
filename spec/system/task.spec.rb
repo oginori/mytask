@@ -48,7 +48,8 @@ describe 'タスク管理機能', type: :system do
         visit tasks_path
         find('.sort_priority_button').click
         task_list = all('.task_name')
-        # expect(task_list[0]).to have_content 'title5'
+        sleep(0.5)
+        expect(task_list[0]).to have_content 'title5'
       end
     end
 
