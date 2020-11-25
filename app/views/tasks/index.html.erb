@@ -5,23 +5,25 @@
 
 
 <%= form_with(model: Task.new, method: :get, local: true) do |f| %>
-  <div class="col-md-4 input-group">
-    <%= f.label :name, class: "input-group-text"%>
-    <%= f.text_field :name, class: "form-control" %>
-  </div>
-
-  <div class="col-md-4 input-group mb-3">
-    <div class="input-group-prepend">
-      <%= f.label :status, class: "input-group-text" %>
+  <div class="col-md-12 input-group">
+    <div class="col-md-5 input-group">
+      <%= f.label :name, class: "input-group-text"%>
+      <%= f.text_field :name, class: "form-control" %>
     </div>
-    <%= f.select :status, [['未着手','未着手'], ['着手中', '着手中'], ['完了', '完了']], {include_blank: true}, {class: "custom-select"} %>
+    <div class="col-md-5 input-group">
+      <div class="input-group-prepend">
+        <%= f.label :status, class: "input-group-text" %>
+        <%= f.select :status, [['未着手','未着手'], ['着手中', '着手中'], ['完了', '完了']], {include_blank: true}, {class: "custom-select"} %>
+      </div>
+      <div class="col-md-5 input-group">
+        <%= f.submit '検索する', id: "search", class: "btn btn-light" %>
+      </div>
+      <% end %>
+    </div>
+
+    <%= link_to '新規登録', new_task_path, class: "btn btn-primary" %>
   </div>
-
-  <%= f.submit '検索する', id: "search", class: "btn btn-light" %>
-<% end %>
-
-<%= link_to '新規登録', new_task_path, class: "btn btn-primary" %>
-
+<br/>
 
 <table class="table">
   <tr>
