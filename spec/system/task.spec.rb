@@ -40,6 +40,7 @@ describe 'タスク管理機能', type: :system do
         find('.sort_expired_button').click
         task_list = all('.task_name')
         expect(task_list[0]).to have_content 'title5'
+        expect(task_list[1]).to have_content 'title4'
       end
     end
 
