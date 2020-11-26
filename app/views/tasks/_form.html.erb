@@ -10,16 +10,30 @@
     </div>
   <% end %>
 
-  <div class="task_name">
+  <div class="task_name form-group">
     <%= f.label :name %><br>
     <%= f.text_field :name %>
   </div>
-  <div class="task_description">
+  <div class="task_description form-group">
     <%= f.label :description %><br>
     <%= f.text_area :description %><br>
   </div>
+  <div class="task_expired_at form-group">
+    <%= f.label :expired_at %><br>
+    <%= f.date_field :expired_at %><br>
+  </div>
 
-  <%= f.submit %>
+  <div class="task_status form-group">
+    <%= f.label :priority %><br>
+    <%= f.select :priority, [["高","high"],["中","medium"],["低","low"]], :selected=>Task.priorities[@task.priority] %><br>
+  </div>
+
+  <div class="task_status form-group">
+    <%= f.label :status %><br>
+    <%= f.select :status, [["未着手", "未着手"],["着手中", "着手中"], ["完了", "完了"]] %><br>
+  </div>
+
+  <%= f.submit class: 'btn btn-default' %>
 <% end %>
 
-<%= link_to t('view.back'), tasks_path %>
+<%= link_to t('view.back'), tasks_path, class: 'nav-link'%>

@@ -1,7 +1,11 @@
-<h3><%= @task.name %></h3>
+<h1><%= @task.name %></h1>
 
 <div>
-  <%= @task.description %>
+  <span>詳細：</span><%= @task.description %>
+</div>
+
+<div>
+  <span>終了期限：</span><%= @task.expired_at %>
 </div>
 
 <div>
