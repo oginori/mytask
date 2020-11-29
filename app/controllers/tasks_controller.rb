@@ -1,5 +1,6 @@
 class TasksController < ApplicationController
   before_action :task_params, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user
   def index
     if params[:task].present?
       if params[:task][:name].present? && params[:task][:status].present?
