@@ -3,3 +3,5 @@
 <%= link_to 'タスク一覧', tasks_path, class: "btn btn-success" %><br><br>
 
 <p>メールアドレス: <%= @user.email %></p>
+
+<%= link_to '修正する', edit_user_path(@user.id) %>
