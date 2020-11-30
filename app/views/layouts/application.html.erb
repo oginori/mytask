@@ -15,12 +15,18 @@
         <%= content_tag(:div, value, class: "#{key}") %>
       <% end %>
       <% if logged_in? %>
-        <%= link_to "Profile", user_path(current_user.id) %>
-        <%= link_to "Logout", session_path(current_user.id), method: :delete %>
+      <div class="btn-group btn-group-sm">
+        <%= link_to "Profile", user_path(current_user.id), class: "btn btn-outline-secondary" %>
+        <%= link_to "Logout", session_path(current_user.id), method: :delete, class: "btn btn-outline-secondary" %>
+        <%= link_to "管理画面一覧へ", admin_users_path, class: "btn btn-outline-secondary" if current_user.admin?%>
+      </div>
       <% else %>
-        <%= link_to "Sign up", new_user_path %>
-        <%= link_to "Login", new_session_path %>
+      <div class="btn-group btn-group-sm">
+        <%= link_to "Sign up", new_user_path, class: "btn btn-outline-secondary" %>
+        <%= link_to "Login", new_session_path, class: "btn btn-outline-secondary" %>
+      </div>
       <% end %>
+
       <%= yield %>
     </div>
   </body>

@@ -1,26 +1,51 @@
 class Admin::UsersController < ApplicationController
-  before_action :user_params, only: [:edit, :update, :delete]
+  before_action :user_params, only: [:edit, :update, :destroy, :show ]
   before_action :admin, only: [:new, :index, :show]
-  def new
-  end
+
 
   def index
-    @users = User.all
+    @users = User.all.includes(:tasks)
+  end
+
+  def new
+    @user = User.new
+  end
+
+  def create
+    @user = User.new(set_params)
+    if @user.save
+      redirect_to admin_users_path
+    else
+      render :new
+    end
+  end
+
+  def show
+    @tasks = @user.tasks
   end
 
   def edit
   end
 
   def update
-    if @user.admin?
+    if params[:admin_judge] == "true"
       @user.update_columns(admin: false)
-    else
+      redirect_to admin_users_path
+    elsif params[:admin_judge] == "false"
       @user.update_columns(admin: true)
+      redirect_to admin_users_path
+    else
+      if @user.update(set_params)
+        redirect_to admin_users_path
+      else
+        :new
+      end
     end
-    redirect_to admin_users_path
   end
 
-  def delete
+  def destroy
+    @user.destroy
+    redirect_to admin_users_path, notice: 'ユーザーを削除しました。'
   end
 
   private
