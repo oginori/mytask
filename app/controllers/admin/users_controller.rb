@@ -28,24 +28,28 @@ class Admin::UsersController < ApplicationController
   end
 
   def update
-    if params[:admin_judge] == "true"
-      @user.update_columns(admin: false)
-      redirect_to admin_users_path
-    elsif params[:admin_judge] == "false"
-      @user.update_columns(admin: true)
-      redirect_to admin_users_path
-    else
+    if params[:admin_judge].nil?
       if @user.update(set_params)
         redirect_to admin_users_path
       else
-        :new
+        redirect_to edit_admin_user_path(@user.id), notice: "管理者の権限削除はできません。"
       end
+    elsif
+      if params[:admin_judge] == "true"
+        admin_delete_judge
+      elsif params[:admin_judge] == "false"
+        @user.update_columns(admin: true)
+      end
+    redirect_to admin_users_path
     end
   end
 
   def destroy
-    @user.destroy
-    redirect_to admin_users_path, notice: 'ユーザーを削除しました。'
+    if @user.destroy
+      redirect_to admin_users_path, notice: 'ユーザーを削除しました。'
+    else
+      redirect_to admin_users_path, notice: 'ユーザーを削除できませんでした。'
+    end
   end
 
   private
