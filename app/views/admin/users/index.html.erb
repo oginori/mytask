@@ -24,7 +24,7 @@
 
     <td>
       <% if user.admin? %>
-        <%= link_to '権限削除', admin_user_path(user.id, admin_judge: true), class: "btn btn-outline-danger", method: :put  %>
+        <%= link_to '権限削除', admin_user_path(user.id, admin_judge: true), class: "btn btn-danger", method: :put  %>
       <% else %>
         <%= link_to '権限付与', admin_user_path(user.id, admin_judge: false), class: "btn btn-outline-danger", method: :put %>
       <% end %>

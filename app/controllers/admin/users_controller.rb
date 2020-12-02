@@ -32,7 +32,7 @@ class Admin::UsersController < ApplicationController
       if @user.update(set_params)
         redirect_to admin_users_path
       else
-        redirect_to edit_admin_user_path(@user.id), notice: "管理者の権限削除はできません。"
+        redirect_to edit_admin_user_path(@user.id), notice: "管理者の権限削除はできません"
       end
     elsif
       if params[:admin_judge] == "true"
@@ -46,9 +46,9 @@ class Admin::UsersController < ApplicationController
 
   def destroy
     if @user.destroy
-      redirect_to admin_users_path, notice: 'ユーザーを削除しました。'
+      redirect_to admin_users_path, notice: 'ユーザーを削除しました'
     else
-      redirect_to admin_users_path, notice: 'ユーザーを削除できませんでした。'
+      redirect_to admin_users_path, notice: 'ユーザーを削除できませんでした'
     end
   end
 
