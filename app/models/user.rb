@@ -1,6 +1,5 @@
 class User < ApplicationRecord
-  before_destroy :ensure_admin, prepend: true
-  before_update :ensure_admin, prepend: true
+  before_destroy :ensure_admin_delete
 
   has_many :tasks, dependent: :destroy
 
@@ -12,9 +11,10 @@ class User < ApplicationRecord
 
   private
 
-  def ensure_admin
-     if User.where(admin: true).count == 1
+  def ensure_admin_delete
+     if User.where(admin: true).count == 1 && self.admin == true
        throw(:abort)
      end
   end
+
 end

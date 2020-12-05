@@ -29,10 +29,11 @@ class Admin::UsersController < ApplicationController
 
   def update
     if params[:admin_judge].nil?
-      if @user.update(set_params)
-        redirect_to admin_users_path
-      else
+      if User.where(admin: true).count == 1 && @user.admin == true
         redirect_to edit_admin_user_path(@user.id), notice: "管理者の権限削除はできません"
+      else
+        @user.update(set_params)
+        redirect_to admin_users_path, notice: '更新しました'
       end
     elsif
       if params[:admin_judge] == "true"
