@@ -1,6 +1,5 @@
 class User < ApplicationRecord
   before_destroy :ensure_admin_delete
-
   has_many :tasks, dependent: :destroy
 
   before_validation { email.downcase! }

@@ -1,6 +1,7 @@
 class Admin::UsersController < ApplicationController
+
   before_action :user_params, only: [:edit, :update, :destroy, :show ]
-  before_action :admin, only: [:new, :index, :show]
+  before_action :admin_check, only: [:new, :index, :show]
 
 
   def index
@@ -29,15 +30,12 @@ class Admin::UsersController < ApplicationController
 
   def update
     if params[:admin_judge].nil?
-      if User.where(admin: true).count == 1 && @user.admin == true
-        redirect_to edit_admin_user_path(@user.id), notice: "管理者の権限削除はできません"
-      else
-        @user.update(set_params)
-        redirect_to admin_users_path, notice: '更新しました'
-      end
-    elsif
+      update_check
+      @user.update(set_params)
+      redirect_to admin_users_path, notice: '更新しました'
+    else
       if params[:admin_judge] == "true"
-        admin_delete_judge
+         admin_delete_judge
       elsif params[:admin_judge] == "false"
         @user.update_columns(admin: true)
       end
@@ -46,7 +44,9 @@ class Admin::UsersController < ApplicationController
   end
 
   def destroy
-    if @user.destroy
+    if current_user.destroy
+      redirect_to new_session_path, notice: 'ログインしてください'
+    elsif @user.destroy
       redirect_to admin_users_path, notice: 'ユーザーを削除しました'
     else
       redirect_to admin_users_path, notice: 'ユーザーを削除できませんでした'
@@ -55,8 +55,12 @@ class Admin::UsersController < ApplicationController
 
   private
 
-  def admin
-    redirect_to tasks_path, notice: "管理者以外はアクセスできません" unless current_user.admin?
+  def admin_check
+    redirect_to tasks_path, notice: "管理者以外はアクセスできません" unless current_user.admin == true
+  end
+
+  def update_check
+    redirect_to edit_admin_user_path(id) if User.where(admin: true) == 1 && current_user.admin == true
   end
 
   def set_params
