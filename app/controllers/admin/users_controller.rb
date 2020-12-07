@@ -44,12 +44,15 @@ class Admin::UsersController < ApplicationController
   end
 
   def destroy
-    if current_user.destroy
-      redirect_to new_session_path, notice: 'ログインしてください'
-    elsif @user.destroy
-      redirect_to admin_users_path, notice: 'ユーザーを削除しました'
+    if current_user.id == @user.id
+      if @user.destroy
+        redirect_to new_session_path, notice: 'ログインしてください'
+      else
+        redirect_to admin_users_path, notice: '削除できません'
+      end
     else
-      redirect_to admin_users_path, notice: 'ユーザーを削除できませんでした'
+      @user.destroy
+      redirect_to admin_users_path, notice: 'ユーザーを削除しました'
     end
   end
 

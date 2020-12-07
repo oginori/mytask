@@ -47,7 +47,9 @@ describe 'タスク管理機能', type: :system do
         visit tasks_path
         find('.sort_expired_button').click
         task_list = all('.task_name')
+        sleep(1.0)
         expect(task_list[0]).to have_content 'title5'
+        sleep(1.0)
         expect(task_list[1]).to have_content 'title4'
       end
     end

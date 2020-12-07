@@ -126,8 +126,9 @@ describe 'ユーザー機能', type: :system do
         context '管理ユーザがユーザを削除した場合' do
           it 'ユーザ一覧に削除したユーザが表示されない' do
             visit admin_users_path
-            click_on '削除', match: :first
-            page.accept_confirm "本当に削除しますか"
+            page.accept_confirm do
+              click_on :delete_button, match: :first
+            end
             expect(page).to have_content 'ユーザーを削除しました'
             expect(page).not_to have_content "test"
           end
