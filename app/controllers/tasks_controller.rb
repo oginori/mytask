@@ -1,22 +1,23 @@
 class TasksController < ApplicationController
   before_action :task_params, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user
   def index
     if params[:task].present?
       if params[:task][:name].present? && params[:task][:status].present?
-        @tasks = Task.search_by_name(params[:task][:name]).search_by_status(params[:task][:status]).page(params[:page]).per(10)
+        @tasks = current_user.tasks.search_by_name(params[:task][:name]).search_by_status(params[:task][:status]).page(params[:page]).per(10)
       elsif params[:task][:name].present?
-        @tasks = Task.search_by_name(params[:task][:name]).page(params[:page]).per(10)
+        @tasks = current_user.tasks.search_by_name(params[:task][:name]).page(params[:page]).per(10)
       elsif params[:task][:status].present?
-        @tasks = Task.search_by_status(params[:task][:status]).page(params[:page]).per(10)
+        @tasks = current_user.tasks.search_by_status(params[:task][:status]).page(params[:page]).per(10)
       else
-        @tasks = Task.all.order(created_at: :desc).page(params[:page]).per(10)
+        @tasks = current_user.tasks.all.order(created_at: :desc).page(params[:page]).per(10)
       end
     elsif params[:sort_expired]
-      @tasks = Task.all.order(expired_at: :desc).page(params[:page]).per(10)
+      @tasks = current_user.tasks.all.order(expired_at: :desc).page(params[:page]).per(10)
     elsif params[:sort_priority]
-      @tasks = Task.all.order(priority: :asc).page(params[:page]).per(10)
+      @tasks = current_user.tasks.all.order(priority: :asc).page(params[:page]).per(10)
     else
-        @tasks = Task.all.order(created_at: :desc).page(params[:page]).per(10)
+        @tasks = current_user.tasks.all.order(created_at: :desc).page(params[:page]).per(10)
     end
   end
 
@@ -26,6 +27,7 @@ class TasksController < ApplicationController
 
   def create
     @task = Task.new(set_params)
+    @task.user_id = current_user.id
     if @task.save
       redirect_to tasks_path, notice: '新規タスクを作成しました！'
     else

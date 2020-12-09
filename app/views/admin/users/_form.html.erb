@@ -1,0 +1,35 @@
+<%= form_with(model: @user, local: true, url: choose_new_or_edit ) do |f| %>
+<% if @user.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@user.errors.count, "error") %> prohibited this <%= @user.name %> from being saved:</h2>
+    <ul>
+    <% @user.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+  <div class="form-group">
+  <%= f.label :name %>
+  <%= f.text_field :name, class: "form-control" %>
+  </div>
+  <div class="form-group">
+  <%= f.label :email %>
+  <%= f.email_field :email, class: "form-control" %>
+  </div>
+  <div class="form-group">
+  <%= f.label :password %>
+  <%= f.password_field :password, class: "form-control" %>
+  </div>
+  <div class="form-group">
+  <%= f.label :password_confirmation %>
+  <%= f.password_field :password_confirmation, class: "form-control" %>
+  </div>
+  <div class="form-group">
+  <%= f.label :admin %>
+  <%= f.select :admin,[["有", true], ["無", false]], {}, {class: "custom-select"} %>
+  </div>
+  <%= f.submit class: "btn btn-primary" %>
+<% end %>
+
+<%= link_to '一覧に戻る', admin_users_path %>

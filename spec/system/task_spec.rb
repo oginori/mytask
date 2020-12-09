@@ -1,10 +1,18 @@
 require 'rails_helper'
 describe 'タスク管理機能', type: :system do
-  let!(:task) { FactoryBot.create(:task, name: 'task', status: '完了')}
-  let!(:second_task) { FactoryBot.create(:second_task)}
-  let!(:third_task) { FactoryBot.create(:third_task)}
-  let!(:fourth_task) { FactoryBot.create(:fourth_task)}
-  let!(:fifth_task) { FactoryBot.create(:fifth_task)}
+  let!(:user) { FactoryBot.create(:user) }
+  let!(:task) { FactoryBot.create(:task, name: 'task', status: '完了', user: user )}
+  let!(:second_task) { FactoryBot.create(:second_task, user: user )}
+  let!(:third_task) { FactoryBot.create(:third_task, user: user )}
+  let!(:fourth_task) { FactoryBot.create(:fourth_task, user: user )}
+  let!(:fifth_task) { FactoryBot.create(:fifth_task, user: user )}
+  before do
+    visit new_session_path
+    fill_in 'session_email', with: user.email
+    fill_in 'session_password', with: user.password
+    click_on 'commit'
+  end
+
   describe '新規作成機能' do
     context 'タスクを新規作成した場合' do
       it '作成したタスクが表示される' do
@@ -49,7 +57,6 @@ describe 'タスク管理機能', type: :system do
         visit tasks_path
         find('.sort_priority_button').click
         task_list = all('.task_name')
-        sleep(0.5)
         expect(task_list[0]).to have_content 'title5'
       end
     end

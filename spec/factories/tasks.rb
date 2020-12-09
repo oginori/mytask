@@ -6,6 +6,7 @@ FactoryBot.define do
     priority {'low'}
     created_at { Time.current + 1.days }
     expired_at { Time.current + 1.days }
+    user
   end
   factory :second_task, class: Task do
     name { 'title2' }
@@ -14,6 +15,7 @@ FactoryBot.define do
     priority {'low'}
     created_at { Time.current + 2.days }
     expired_at { Time.current + 2.days }
+    user
   end
   factory :third_task, class: Task do
     name { 'title3' }
@@ -22,6 +24,7 @@ FactoryBot.define do
     priority {'medium'}
     created_at { Time.current + 3.days }
     expired_at { Time.current + 3.days }
+    user
   end
   factory :fourth_task, class: Task do
     name { 'title4' }
@@ -30,6 +33,7 @@ FactoryBot.define do
     priority {'medium'}
     created_at { Time.current + 4.days }
     expired_at { Time.current + 4.days }
+    user
   end
   factory :fifth_task, class: Task do
     name { 'title5' }
@@ -38,5 +42,6 @@ FactoryBot.define do
     priority {'high'}
     created_at { Time.current + 5.days }
     expired_at { Time.current + 5.days }
+    user
   end
 end
