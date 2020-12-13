@@ -5,3 +5,11 @@ User.create!(name: "admin", email: "admin@example.com", password: "admin_passwor
   Task.create!(name: "sample#{i + 1}", description: "sample#{i + 1}_description", user_id: "#{i + 1}" )
   Label.create!(name: "sample#{i + 1}")
 end
+
+3.times do |i|
+  Labelling.create!(task_id: "#{i + 1}", label_id: 1)
+end
+
+3.times do |i|
+  Labelling.create(task_id: 5, label_id: "#{i + 2}")
+end
