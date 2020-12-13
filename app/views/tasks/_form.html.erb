@@ -33,6 +33,13 @@
     <%= f.select :status, [["未着手", "未着手"],["着手中", "着手中"], ["完了", "完了"]] %><br>
   </div>
 
+  <div class="labelling form-group">
+    <% Label.all.each do |label| %>
+      <%= f.check_box :label_ids, { multiple: true, checked: label[:checked], disabled: label[:disabled], include_hidden: false }, label[:id] %>
+      <%= label.name %>
+    <% end %>
+  </div>
+
   <%= f.submit class: 'btn btn-default' %>
 <% end %>
 
