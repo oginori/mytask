@@ -9,5 +9,12 @@
 </div>
 
 <div>
+  <span>ラベル一覧：</span>
+  <% @task.labels.each do | label | %>
+    <%= label.name %>
+  <% end %>
+</div>
+
+<div>
   <%= link_to '一覧に戻る', tasks_path %>
 </div>
