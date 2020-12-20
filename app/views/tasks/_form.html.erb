@@ -33,7 +33,7 @@
     <%= f.select :status, [["未着手", "未着手"],["着手中", "着手中"], ["完了", "完了"]] %><br>
   </div>
 
-  <div class="labelling form-group">
+  <div class="labelling form-group" name="labelling-group">
     <% Label.all.each do |label| %>
       <%= f.check_box :label_ids, { multiple: true, checked: label[:checked], disabled: label[:disabled], include_hidden: false }, label[:id] %>
       <%= label.name %>
